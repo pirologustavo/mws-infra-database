@@ -22,7 +22,7 @@ data "aws_subnets" "filtered" {
 }
 
 resource "aws_eks_cluster" "mws_cluster" {
-  name     = var.cluster_name
+  name     = "mws-cluster"
   role_arn = "arn:aws:iam::646417168660:role/LabRole"
   version  = "1.31"
 
@@ -32,7 +32,7 @@ resource "aws_eks_cluster" "mws_cluster" {
 }
 
 resource "aws_eks_node_group" "mws_nodes" {
-  cluster_name    = aws_eks_cluster.mws_cluster.name
+  cluster_name    = "mws-cluster"
   node_group_name = "mws_nodes"
   node_role_arn   = "arn:aws:iam::646417168660:role/LabRole"
   subnet_ids      = data.aws_subnets.filtered.ids
